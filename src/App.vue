@@ -1,28 +1,75 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <nav class="app-nav">
+      <div class="app-nav-inner">
+        <router-link
+          v-for="(item, index) in nav"
+          :key="index"
+          :to="{ name: item.linkName }"
+          >{{ item.label }}</router-link
+        >
+      </div>
+    </nav>
+    <router-view class="app-view" />
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
-
 export default {
-  name: 'App',
-  components: {
-    HelloWorld
+  data() {
+    return {
+      nav: [
+        {
+          linkName: 'PageA',
+          label: '页面A'
+        },
+        {
+          linkName: 'PageB',
+          label: '页面B'
+        }
+      ]
+    }
   }
 }
 </script>
 
 <style lang="scss">
+body,
+html {
+  margin: 0px;
+  padding: 0px;
+  height: 100%;
+}
+</style>
+
+<style lang="scss" scoped>
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+  height: 100%;
+
+  .app-nav {
+    height: 56px;
+    display: table;
+    width: 100%;
+    background: rgb(62, 209, 214);
+    text-align: center;
+
+    .app-nav-inner {
+      display: table-cell;
+      vertical-align: middle;
+
+      a {
+        color: black;
+        font-size: 15px;
+        text-decoration: unset;
+      }
+      a:not(:last-child) {
+        margin-right: 20px;
+      }
+    }
+  }
+
+  .app-view {
+    height: calc(100% - 56px);
+  }
 }
 </style>
